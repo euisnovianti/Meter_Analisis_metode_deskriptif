@@ -50,23 +50,33 @@ def load_and_validate_excel(file_buffer) -> Tuple[bool, str, Optional[pd.DataFra
 def render_sidebar_uploader():
     """Sidebar kustom bersih ala Stitch tanpa duplikasi menu."""
     
-    # 1. Logo / Branding di Paling Atas Sidebar
-    st.sidebar.markdown("""
+    #   logo dari assets/Logo_PLN.png)
+    import base64
+    import os
+
+    try:
+        with open("assets/Logo_PLN.png", "rb") as f:
+            logo_base64 = base64.b64encode(f.read()).decode()
+        logo_html = f'<img src="data:image/png;base64,{logo_base64}" style="width: 40px; height: 40px; border-radius: 8px; object-fit: contain; background-color: white; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">'
+    except Exception:
+        # Fallback ke icon default jika gagal load gambar
+        logo_html = '<div style="background-color: #00288e; color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><span class="material-symbols-outlined" style="font-size: 24px;">analytics</span></div>'
+
+    st.sidebar.markdown(f"""
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
         <style>
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .material-symbols-outlined {{ font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }}
         </style>
         <div style="display: flex; align-items: center; gap: 12px; padding: 5px 0 15px 0;">
-            <div style="background-color: #00288e; color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <span class="material-symbols-outlined" style="font-size: 24px;">analytics</span>
-            </div>
+            {logo_html} <!-- DISINI LOGO KITA DISISIPKAN -->
             <div>
-                <div style="font-weight: 700; font-size: 16px; color: #191c1e; line-height: 1.2;">SIPERTI</div>
+                <div style="font-weight: 700; font-size: 16px; color: #191c1e; line-height: 1.2;">SIPERTI UP3 Garut</div>
                 <div style="font-size: 11px; color: #444653;">Enterprise Analytics</div>
             </div>
         </div>
         <hr style="margin: 0 0 15px 0; border-color: #c4c5d5;">
     """, unsafe_allow_html=True)
+
     
     # 2. Menu Navigasi Kustom (Hanya muncul di sini)
     st.sidebar.markdown("### Navigasi Menu")
