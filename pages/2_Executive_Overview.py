@@ -4,7 +4,8 @@ from src.data_loader import render_sidebar_uploader
 from src.visualizer import (
     plot_target_vs_realisasi_ulp,
     plot_reading_verification_donut,
-    plot_hourly_distribution
+    plot_hourly_distribution,
+    plot_anomali_breakdown
 )
 
 st.set_page_config(
@@ -60,6 +61,14 @@ st.plotly_chart(fig_bar, use_container_width=True)
 st.subheader(":material/pie_chart: Status Verifikasi Bacaan Lapangan")
 fig_donut = plot_reading_verification_donut(df_filtered)
 st.plotly_chart(fig_donut, use_container_width=True)
+
+# 3. Anomali Bar Chart: Rekapitulasi Kendala
+st.subheader(":material/troubleshoot: Rekapitulasi Kendala (Anomali)")
+fig_anomali = plot_anomali_breakdown(df_filtered)
+if fig_anomali:
+    st.plotly_chart(fig_anomali, use_container_width=True)
+else:
+    st.success("Tidak ada kendala lapangan yang tercatat. Semua pembacaan normal.")
 
 # 3. Line/Histogram Chart: Tren Jam Pembacaan (Hourly)
 st.subheader(":material/schedule: Tren Jam Pembacaan (Hourly Distribution)")

@@ -70,7 +70,7 @@ def render_sidebar_uploader():
         <div style="display: flex; align-items: center; gap: 12px; padding: 5px 0 15px 0;">
             {logo_html} <!-- DISINI LOGO KITA DISISIPKAN -->
             <div>
-                <div style="font-weight: 700; font-size: 16px; color: #191c1e; line-height: 1.2;">SIPERTI UP3 Garut</div>
+                <div style="font-weight: 700; font-size: 16px; color: #191c1e; line-height: 1.2;">SIPERTI</div>
                 <div style="font-size: 11px; color: #444653;">Enterprise Analytics</div>
             </div>
         </div>
