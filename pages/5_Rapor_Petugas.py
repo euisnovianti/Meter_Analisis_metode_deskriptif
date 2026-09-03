@@ -113,5 +113,5 @@ else:
     total_anomali = len(df_anomali)
     rekap_anomali["Proporsi dari Total Masalah"] = (rekap_anomali["Jumlah SR"] / total_anomali * 100).map("{:.2f}%".format)
     
-    st.info(f"Ditemukan **{total_anomali} SR** dengan status tidak normal / kendala.")
+    st.info(f"Ditemukan **{total_anomali}** dengan status tidak normal / kendala.")
     st.dataframe(rekap_anomali, use_container_width=True, hide_index=True)

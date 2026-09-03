@@ -23,7 +23,7 @@ if not st.session_state.get("data_ready", False) or st.session_state.get("raw_da
     st.info("Silakan unggah file Excel melalui menu di sidebar sebelah kiri.")
     st.stop()
 
-st.title(":material/dashboard: Executive Overview & Global Filter")
+st.title(":material/dashboard: Manajerial Overview & Global Filter")
 st.markdown("Ringkasan metrik operasional dan pemantauan real-time pembacaan meter listrik.")
 
 render_global_filter_bar(st.session_state["raw_data"])
@@ -70,14 +70,14 @@ if fig_anomali:
 else:
     st.success("Tidak ada kendala lapangan yang tercatat. Semua pembacaan normal.")
 
-# 3. Line/Histogram Chart: Tren Jam Pembacaan (Hourly)
+# 4. Line/Histogram Chart: Tren Jam Pembacaan (Hourly)
 st.subheader(":material/schedule: Tren Jam Pembacaan (Hourly Distribution)")
 fig_hour = plot_hourly_distribution(df_filtered)
 st.plotly_chart(fig_hour, use_container_width=True)
 
 st.markdown("---")
 
-# --- 4. TABEL RINGKASAN REKAPITULASI OPERASIONAL ---
+# --- 5. TABEL RINGKASAN REKAPITULASI OPERASIONAL ---
 st.subheader(":material/table_chart: Ringkasan Kinerja Operasional per ULP")
 
 df_summary = df_filtered.groupby("ULP").agg(
