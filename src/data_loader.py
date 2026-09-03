@@ -50,17 +50,9 @@ def load_and_validate_excel(file_buffer) -> Tuple[bool, str, Optional[pd.DataFra
 def render_sidebar_uploader():
     """Sidebar kustom bersih ala Stitch tanpa duplikasi menu."""
     
-    #   logo dari assets/Logo_PLN.png)
-    import base64
-    import os
-
-    try:
-        with open("assets/Logo_PLN.png", "rb") as f:
-            logo_base64 = base64.b64encode(f.read()).decode()
-        logo_html = f'<img src="data:image/png;base64,{logo_base64}" style="width: 40px; height: 40px; border-radius: 8px; object-fit: contain; background-color: white; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">'
-    except Exception:
-        # Fallback ke icon default jika gagal load gambar
-        logo_html = '<div style="background-color: #00288e; color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><span class="material-symbols-outlined" style="font-size: 24px;">analytics</span></div>'
+    # Menggunakan URL langsung agar tidak bermasalah saat di-deploy
+    LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/9/97/Logo_PLN.png"
+    logo_html = f'<img src="{LOGO_URL}" style="width: 40px; height: 40px; border-radius: 8px; object-fit: contain; background-color: white; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">'
 
     st.sidebar.markdown(f"""
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
@@ -118,9 +110,9 @@ def render_sidebar_uploader():
                     st.sidebar.error(msg)
     else:
         file_name = st.session_state.get('loaded_file_name', 'File Aktif')
-        st.sidebar.info(f"📂 **Aktif:** {file_name}")
+        st.sidebar.info(f"**File Aktif:** {file_name}")
         
-        if st.sidebar.button("🔄 Ganti / Reset File", use_container_width=True):
+        if st.sidebar.button("Reset File", use_container_width=True):
             st.session_state["data_ready"] = False
             st.session_state["raw_data"] = None
             if "loaded_file_name" in st.session_state:
