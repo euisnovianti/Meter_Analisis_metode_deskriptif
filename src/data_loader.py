@@ -50,16 +50,17 @@ def load_and_validate_excel(file_buffer) -> Tuple[bool, str, Optional[pd.DataFra
 def render_sidebar_uploader():
     """Sidebar kustom bersih ala Stitch tanpa duplikasi menu."""
     
-    # 1. Logo / Branding di Paling Atas Sidebar
-    st.sidebar.markdown("""
+    # Menggunakan URL langsung agar tidak bermasalah saat di-deploy
+    LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/9/97/Logo_PLN.png"
+    logo_html = f'<img src="{LOGO_URL}" style="width: 40px; height: 40px; border-radius: 8px; object-fit: contain; background-color: white; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">'
+
+    st.sidebar.markdown(f"""
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
         <style>
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .material-symbols-outlined {{ font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }}
         </style>
         <div style="display: flex; align-items: center; gap: 12px; padding: 5px 0 15px 0;">
-            <div style="background-color: #00288e; color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <span class="material-symbols-outlined" style="font-size: 24px;">analytics</span>
-            </div>
+            {logo_html} <!-- DISINI LOGO KITA DISISIPKAN -->
             <div>
                 <div style="font-weight: 700; font-size: 16px; color: #191c1e; line-height: 1.2;">SIPERTI</div>
                 <div style="font-size: 11px; color: #444653;">Enterprise Analytics</div>
@@ -67,6 +68,7 @@ def render_sidebar_uploader():
         </div>
         <hr style="margin: 0 0 15px 0; border-color: #c4c5d5;">
     """, unsafe_allow_html=True)
+
     
     # 2. Menu Navigasi Kustom (Hanya muncul di sini)
     st.sidebar.markdown("### Navigasi Menu")
@@ -108,9 +110,9 @@ def render_sidebar_uploader():
                     st.sidebar.error(msg)
     else:
         file_name = st.session_state.get('loaded_file_name', 'File Aktif')
-        st.sidebar.info(f"📂 **Aktif:** {file_name}")
+        st.sidebar.info(f"**File Aktif:** {file_name}")
         
-        if st.sidebar.button("🔄 Ganti / Reset File", use_container_width=True):
+        if st.sidebar.button("Reset File", use_container_width=True):
             st.session_state["data_ready"] = False
             st.session_state["raw_data"] = None
             if "loaded_file_name" in st.session_state:

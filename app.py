@@ -4,8 +4,7 @@ from src.ui import render_material_symbols
 
 # Konfigurasi Halaman Utama
 st.set_page_config(
-    page_title="SIPERTI-UP3 GARUT",
-    page_icon="⚡",
+    page_title="SIPERTI",
     layout="wide",
     initial_sidebar_state="expanded"
 )
