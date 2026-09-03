@@ -51,6 +51,11 @@ if df_eval.empty:
 st.subheader(":material/preview: Preview Laporan Rekapitulasi")
 st.info(f"Data yang ditampilkan dan diekspor menggunakan urutan **Statistik Deskriptif ({st.session_state.get('desc_sort_by', 'Volume Pembacaan Terbanyak')})**.")
 
+# Format kolom Jam_Awal dan Jam_Akhir menjadi format HH:MM
+for col in ["Jam_Awal", "Jam_Akhir"]:
+    if col in df_eval.columns:
+        df_eval[col] = pd.to_datetime(df_eval[col], errors="coerce").dt.strftime("%H:%M").fillna("-")
+
 st.dataframe(df_eval, use_container_width=True, hide_index=True)
 
 st.markdown("---")
