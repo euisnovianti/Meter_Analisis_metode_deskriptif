@@ -20,7 +20,7 @@ def render_material_symbols() -> None:
 
 def render_global_filter_bar(df: pd.DataFrame) -> None:
     """Render shared global filters in the page content area."""
-    st.markdown("### :material/filter_alt: Global Control Bar")
+    st.markdown("### :material/filter_alt: Filter Data")
     filter_col_ulp, filter_col_hari, filter_col_date, filter_col_rbm = st.columns(
         [1.3, 1.3, 1.5, 1.3]
     )

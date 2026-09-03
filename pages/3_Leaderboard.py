@@ -120,7 +120,7 @@ if search_query:
 
 cols_to_show = [
     "Rank", "KODE_RBM", "Petugas_Bertugas", "ULP", "Total_Target", 
-    "Sukses_Normal", "Ketercapaian", "Volume", "Waktu", "Anomali"
+    "Sukses_Normal", "Ketercapaian", "Volume", "Durasi_Display", "Anomali"
 ]
 
 rename_dict = {
@@ -130,11 +130,9 @@ rename_dict = {
     "Sukses_Normal": "Sukses Normal",
     "Ketercapaian": "Ketercapaian (%)",
     "Volume": "Volume Baca",
-    "Waktu": "Skor Waktu",
+    "Durasi_Display": "Total Durasi Waktu",
     "Anomali": "Anomali (%)"
 }
-
-
 
 df_summary = df_display[cols_to_show].rename(columns=rename_dict)
 
@@ -157,7 +155,7 @@ display_cols = [
     "Normal / Berhasil",
     "Kendala / Anomali",
     "Volume Baca",
-    "Skor Waktu"
+    "Total Durasi Waktu"
 ]
 
 

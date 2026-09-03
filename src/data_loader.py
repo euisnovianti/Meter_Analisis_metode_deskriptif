@@ -10,7 +10,8 @@ REQUIRED_COLUMNS = [
     "KODE_PESAN", "KOORDINAT_X", "KOORDINAT_Y", "DLPD", "PEMKWH"
 ]
 
-@st.cache_data(show_spinner="Memuat dataset operasional...", max_entries=2)
+# Matikan show_spinner di cache agar tidak dobel dengan spinner pemanggil
+@st.cache_data(show_spinner=False, max_entries=2)
 def load_and_validate_excel(file_buffer) -> Tuple[bool, str, Optional[pd.DataFrame]]:
     """
     Membaca file buffer Excel/CSV dan melakukan validasi struktur kolom.
@@ -95,7 +96,8 @@ def render_sidebar_uploader():
         )
         
         if uploaded_file is not None:
-            with st.spinner("Memproses file..."):
+            # Menggunakan satu spinner tunggal
+            with st.spinner("Memproses dataset operasional..."):
                 success, msg, df_raw = load_and_validate_excel(uploaded_file)
                 if success:
                     excluded_users = st.session_state.get("excluded_users", [])
@@ -117,5 +119,4 @@ def render_sidebar_uploader():
             st.session_state["raw_data"] = None
             if "loaded_file_name" in st.session_state:
                 del st.session_state["loaded_file_name"]
-            st.rerun()
             st.rerun()

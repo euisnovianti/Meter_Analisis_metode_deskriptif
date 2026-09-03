@@ -7,7 +7,7 @@ from src.metrics_engine import calculate_performance_metrics
 from src.export_report import generate_excel_report
 
 st.set_page_config(
-    page_title="Laporan & Ekspor - MeterOps",
+    page_title="Laporan & Ekspor - SIPERTI",
     page_icon=":material/description:",
     layout="wide"
 )
@@ -49,7 +49,7 @@ if df_eval.empty:
 
 # --- PREVIEW LAPORAN ---
 st.subheader(":material/preview: Preview Laporan Rekapitulasi")
-st.info(f"📈 Data yang ditampilkan dan diekspor menggunakan urutan **Historis Deskriptif ({st.session_state.get('desc_sort_by', 'Volume Pembacaan Terbanyak')})**.")
+st.info(f"Data yang ditampilkan dan diekspor menggunakan urutan **Statistik Deskriptif ({st.session_state.get('desc_sort_by', 'Volume Pembacaan Terbanyak')})**.")
 
 st.dataframe(df_eval, use_container_width=True, hide_index=True)
 
