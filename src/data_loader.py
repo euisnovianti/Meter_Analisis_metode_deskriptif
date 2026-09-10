@@ -1,5 +1,7 @@
 import pandas as pd
 import streamlit as st
+from base64 import b64encode
+from pathlib import Path
 from typing import Tuple, Optional
 from src.preprocessor import clean_and_preprocess_data
 
@@ -51,24 +53,55 @@ def load_and_validate_excel(file_buffer) -> Tuple[bool, str, Optional[pd.DataFra
 def render_sidebar_uploader():
     """Sidebar kustom bersih ala Stitch tanpa duplikasi menu."""
     
-    # Menggunakan URL langsung agar tidak bermasalah saat di-deploy
-    LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/9/97/Logo_PLN.png"
-    logo_html = f'<img src="{LOGO_URL}" style="width: 40px; height: 40px; border-radius: 8px; object-fit: contain; background-color: white; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">'
+    # Logo lokal tetap ditemukan dari direktori mana pun Streamlit dijalankan.
+    logo_path = Path(__file__).resolve().parent.parent / "assets" / "Logo_PLN.png"
+    try:
+        logo_base64 = b64encode(logo_path.read_bytes()).decode("ascii")
+        logo_html = (
+            f'<img src="data:image/png;base64,{logo_base64}" '
+            'class="siperti-sidebar-logo" alt="Logo PLN">'
+        )
+    except OSError:
+        logo_html = '<span class="siperti-sidebar-logo-fallback">PLN</span>'
 
-    st.sidebar.markdown(f"""
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
+    st.sidebar.html("""
         <style>
-        .material-symbols-outlined {{ font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }}
+        .siperti-sidebar-brand {
+            display: flex; align-items: center; gap: 20px;
+            padding: 12px 0 24px; margin-bottom: 10px;
+            background: transparent; border: 0; border-bottom: 1px solid #CFDEEC;
+            border-radius: 0; box-shadow: none;
+        }
+        .siperti-sidebar-logo {
+            display: block; width: 34px; height: auto; flex: 0 0 34px;
+            object-fit: contain; border: 0; border-radius: 0;
+            background: transparent; padding: 0; box-shadow: none;
+        }
+        .siperti-sidebar-logo-fallback { color: #008FB6; font-size: 14px; font-weight: 800; }
+        .siperti-sidebar-copy { min-width: 0; }
+        .siperti-sidebar-name {
+            color: #003B73; font-size: 20px; font-weight: 800;
+            line-height: 1.3; letter-spacing: .025em;
+        }
+        .siperti-sidebar-subtitle {
+            color: #244B70; font-size: 12.5px; line-height: 1.55;
+            margin-top: 5px; overflow-wrap: anywhere;
+        }
+        .siperti-sidebar-unit {
+            color: #005BAC; font-size: 12px; font-weight: 750;
+            line-height: 1.5; margin-top: 7px; background: transparent;
+        }
         </style>
-        <div style="display: flex; align-items: center; gap: 12px; padding: 5px 0 15px 0;">
-            {logo_html} <!-- DISINI LOGO KITA DISISIPKAN -->
-            <div>
-                <div style="font-weight: 700; font-size: 16px; color: #191c1e; line-height: 1.2;">SIPERTI</div>
-                <div style="font-size: 11px; color: #444653;">Enterprise Analytics</div>
-            </div>
-        </div>
-        <hr style="margin: 0 0 15px 0; border-color: #c4c5d5;">
-    """, unsafe_allow_html=True)
+    """)
+    st.sidebar.html(
+        '<div class="siperti-sidebar-brand">'
+        f'{logo_html}'
+        '<div class="siperti-sidebar-copy">'
+        '<div class="siperti-sidebar-name">SIPERTI</div>'
+        '<div class="siperti-sidebar-subtitle">Dashboard Analitik Operasional</div>'
+        '<div class="siperti-sidebar-unit">PLN UP3 Garut</div>'
+        '</div></div>'
+    )
 
     
     # 2. Manajemen File / Uploader tepat di bawah logo
