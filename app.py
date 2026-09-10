@@ -28,7 +28,7 @@ render_sidebar_uploader()
 
 # Tampilan Landing Page
 st.title(":material/electric_bolt: SIPERTI")
-st.markdown("### Sistem Pendukung Keputusan Kinerja Petugas Baca Meter")
+st.markdown("### Sistem Perangkingan & Evaluasi Kinerja Petugas Baca Meter")
 
 st.info("👋 Selamat datang di **SIPERTI**! Sistem otomatisasi visualisasi dan evaluasi kinerja petugas baca meter menggunakan metode **statistik deskriptif**.")
 
