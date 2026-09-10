@@ -6,8 +6,12 @@ import pandas as pd
 def render_material_symbols() -> None:
     """Load icons and the shared visual theme on every page (no data changes)."""
     st.markdown(
+        '<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">',
+        unsafe_allow_html=True,
+    )
+    # CSS must bypass Markdown parsing so blank lines cannot expose it as text.
+    st.html(
         """
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
         <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -233,7 +237,6 @@ def render_material_symbols() -> None:
         }
         </style>
         """,
-        unsafe_allow_html=True,
     )
 
 def render_global_filter_bar(df: pd.DataFrame) -> None:
