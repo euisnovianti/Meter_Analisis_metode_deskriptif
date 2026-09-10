@@ -71,19 +71,7 @@ def render_sidebar_uploader():
     """, unsafe_allow_html=True)
 
     
-    # 2. Menu Navigasi Kustom (Hanya muncul di sini)
-    st.sidebar.markdown("### Navigasi Menu")
-    st.sidebar.page_link("app.py", label="Information", icon=":material/info:")
-    st.sidebar.page_link("pages/2_Executive_Overview.py", label="Dashboard Overview", icon=":material/dashboard:")
-    st.sidebar.page_link("pages/3_Leaderboard.py", label="Leaderboard", icon=":material/leaderboard:")
-    st.sidebar.page_link("pages/4_Analisis_Spasial.py", label="Workforce & Spatial", icon=":material/map:")
-    st.sidebar.page_link("pages/5_Rapor_Petugas.py", label="Officer Tracking", icon=":material/badge:")
-    st.sidebar.page_link("pages/6_Laporan_Ekspor.py", label="Data Management", icon=":material/cloud_download:")
-
-    
-    st.sidebar.markdown("<hr style='margin: 15px 0; border-color: #c4c5d5;'>", unsafe_allow_html=True)
-    
-    # 3. Manajemen File / Uploader di Bagian Bawah
+    # 2. Manajemen File / Uploader tepat di bawah logo
     st.sidebar.markdown("### Manajemen File")
     is_ready = st.session_state.get("data_ready", False)
     
@@ -120,3 +108,14 @@ def render_sidebar_uploader():
             if "loaded_file_name" in st.session_state:
                 del st.session_state["loaded_file_name"]
             st.rerun()
+
+    st.sidebar.markdown("<hr style='margin: 15px 0; border-color: #c4c5d5;'>", unsafe_allow_html=True)
+
+    # 3. Menu Navigasi Kustom (Hanya muncul di sini)
+    st.sidebar.markdown("### Navigasi Menu")
+    st.sidebar.page_link("app.py", label="Information", icon=":material/info:")
+    st.sidebar.page_link("pages/2_Executive_Overview.py", label="Dashboard Overview", icon=":material/dashboard:")
+    st.sidebar.page_link("pages/3_Leaderboard.py", label="Leaderboard", icon=":material/leaderboard:")
+    st.sidebar.page_link("pages/4_Analisis_Spasial.py", label="Workforce & Spatial", icon=":material/map:")
+    st.sidebar.page_link("pages/5_Rapor_Petugas.py", label="Officer Tracking", icon=":material/badge:")
+    st.sidebar.page_link("pages/6_Laporan_Ekspor.py", label="Data Management", icon=":material/cloud_download:")
